@@ -14,5 +14,5 @@ RUN apt-get update  && export DEBIAN_FRONTEND=noninteractive \
  && apt-get -y --no-install-recommends install ca-certificates libssl1.1 \
  && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 WORKDIR /app
-COPY --from=builder /src/bee/target/release/bee ./app/bee
+COPY --from=builder /src/bee/target/release/bee bee
 ENTRYPOINT ["./bee"]  
