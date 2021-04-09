@@ -1,4 +1,4 @@
-FROM rust:slim-buster as builder
+FROM rust:slim-bullseye as builder
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
      && apt-get -y install git npm build-essential cmake pkg-config librocksdb-dev llvm clang libclang-dev libssl-dev   
 WORKDIR /src
@@ -9,8 +9,8 @@ RUN cd src/plugins/dashboard/frontend && npm install
 RUN cd src/plugins/dashboard/frontend && npm run build-bee
 RUN cargo build --release --features dashboard
 
-FROM debian:latest
-RUN apt-get update  && export DEBIAN_FRONTEND=noninteractive \
+FROM debian:bullseye-slim
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
  && apt-get -y --no-install-recommends install ca-certificates libssl1.1 \
  && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts
 WORKDIR /app
